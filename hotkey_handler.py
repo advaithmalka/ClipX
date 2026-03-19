@@ -113,6 +113,11 @@ class HotkeyHandler:
     
     def _event_callback(self, proxy, event_type, event, refcon):
         """Callback for keyboard events."""
+        import objc
+        with objc.autorelease_pool():
+            return self._event_callback_inner(proxy, event_type, event, refcon)
+
+    def _event_callback_inner(self, proxy, event_type, event, refcon):
         try:
             if event_type == kCGEventKeyDown:
                 # Get key code
