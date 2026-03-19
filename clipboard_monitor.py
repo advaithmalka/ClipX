@@ -242,14 +242,16 @@ class ClipboardMonitor:
     
     def _poll_loop(self):
         """Background polling loop."""
+        import objc
         print("[ClipboardMonitor] Starting polling loop...")
         poll_count = 0
         while self._running:
             try:
-                self._check_clipboard()
-                poll_count += 1
-                if poll_count % 10 == 0:  # Log every 3 seconds
-                    print(f"[ClipboardMonitor] Polling... (count={poll_count}, history_size={len(self.history)})")
+                with objc.autorelease_pool():
+                    self._check_clipboard()
+                    poll_count += 1
+                    if poll_count % 10 == 0:  # Log every 3 seconds
+                        print(f"[ClipboardMonitor] Polling... (count={poll_count}, history_size={len(self.history)})")
             except Exception as e:
                 print(f"[ClipboardMonitor] Error: {e}")
             time.sleep(0.3)  # Poll every 300ms
