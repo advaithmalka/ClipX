@@ -335,18 +335,18 @@ class ClipXDelegate(NSObject):
             "This is a macOS security feature.\n\n"
             "If you see an OLD ClipX entry in the list, it no longer works — "
             "macOS tracks each app version separately.\n\n"
-            "Please click 'Open Settings' and:\n"
+            "Please click 'Focus system settings window' and:\n"
             "1. Remove the old ClipX entry (click −)\n"
             "2. Click + and add ClipX again\n"
             "3. Enable the new ClipX entry\n\n"
             "The hotkey (Cmd+Option+V) will start working automatically."
         )
         alert.setAlertStyle_(NSAlertStyleWarning)
-        alert.addButtonWithTitle_("Open Settings")
+        alert.addButtonWithTitle_("Focus system settings window")
         alert.addButtonWithTitle_("Later")
         
         response = alert.runModal()
-        if response == 1000:  # Open Settings
+        if response == 1000:  # Focus System Settings
             AccessibilityHelper.open_accessibility_settings()
     
     def _start_permission_check_timer(self):
